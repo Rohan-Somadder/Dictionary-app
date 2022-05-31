@@ -6,51 +6,42 @@ Link - https://dictionaryapi.dev/
 #TODO : None
 '''
 
-import requests
+
+from word import Word
+
 
 LINK = 'https://api.dictionaryapi.dev/api/v2/entries/en/'
 
 
-class Word():
+def menu():
     '''
-    Class to represent a player
-    ...
-    Attributes
-    ----------
-    word : str
-        word to search for in the dictionary
-    url : str
-        url for the get request
-    data : json
-        data recieved from the get request in jsonified format
-    ...
-    Methods
-    -------
-    word_meanings():
-        Returns the meanings of the word in different parts of speech.
-    examples():
-        Returns the different uses of the word in various sentences.
-    pronunciation():
-        Plays the pronunciation of the word
+    Displays the menu
     '''
+    print('\n', ''.center(80, '='), sep='\n')
+    print('DICTIONARY APP'.center(80, '-'))
+    print(''.center(80, '='))
+    print('\n', 'MENU'.center(80, '-'), sep='\n')
+    print('1. WORD MEANING')
+    print('2. EXAMPLES')
+    print('ELSE : EXIT')
 
-    def __init__(self, word) -> None:
-        self. word = word
-        self.url = LINK + self.word
-        self.data = requests.get(self.url).json()
 
-    def word_meanings(self):
-        '''
-        Returns the word meanings of the words
-        '''
-        meaning = self.data["meanings"]
-        meanings = list(meaning['definitions']['definition'])
-        print(" Meanings : ")
-        for i, m in enumerate(meanings):
-            print(f"{i}.   {m}")
-
-    def examples(self):
-        '''
-        Returns the meanings of the words
-        '''
+def main():
+    '''
+    Main function
+    '''
+    menu()
+    try:
+        choice = int(input("ENTER CHOICE : "))
+    except ValueError:
+        choice = -1
+    input_w = input("Enter the word : ")
+    word = Word(input_w, LINK)
+    if choice == 1:
+        word.word_meanings()
+    elif choice == 2:
         pass
+
+
+if __name__ == "__main__":
+    main()
